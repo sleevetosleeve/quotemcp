@@ -22,6 +22,14 @@ const std::vector<std::string> kQuotes = {
     "Start where you are. Use what you have. Do what you can. - Arthur Ashe",
     "Everything you've ever wanted is on the other side of fear. - George Addair",
     "What lies behind us and what lies before us are tiny matters compared to what lies within us. - Ralph Waldo Emerson",
+    "One child, one teacher, one book, one pen can change the world. - Malala Yousafzai",
+    "We realize the importance of our voices only when we are silenced. - Malala Yousafzai",
+    "The rights of democracy are not reserved for a select group within society; they are the rights of all the people. - Olof Palme",
+    "For us, democracy is a question of human dignity. - Olof Palme",
+    "It's not the daily increase but daily decrease. Hack away at the unessential. - Bruce Lee",
+    "Do not pray for an easy life, pray for the strength to endure a difficult one. - Bruce Lee",
+    "What you seek is seeking you. - Rumi",
+    "The wound is the place where the Light enters you. - Rumi",
 };
 
 std::mt19937& rng() {
