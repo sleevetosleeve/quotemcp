@@ -5,6 +5,9 @@
 
 #include <nlohmann/json.hpp>
 
+#include "args.hpp"
+#include "sessions.hpp"
+
 using json = nlohmann::json;
 
 namespace {
@@ -95,7 +98,24 @@ json toolList() {
                 {"required", json::array()},
             }},
         },
+        {
+            {"name", "get_session_id"},
+            {"description", "Returns a string that can be used in other tool calls to avoid receiving duplicate quotes."},
+            {"inputSchema", {
+                {"type", "object"},
+                {"properties", json::object()},
+                {"required", json::array()},
+            }},
+        },
     });
+}
+
+json callGetSessionId() {
+    std::uniform_int_distribution<std::size_t> pick(0, kQuotes.size() - 1);
+    return {
+        {"content", json::array({textContent(Sessions::get_session_id())})},
+        {"isError", false},
+    };
 }
 
 json callRandomQuote() {
@@ -110,6 +130,9 @@ json handleToolsCall(const json& params) {
     const std::string name = stringField(params, "name");
     if (name == "random_quote") {
         return callRandomQuote();
+    }
+    if (name == "get_session_id") {
+        return callGetSessionId();
     }
     return {
         {"content", json::array({textContent("Unknown tool: " + name)})},
@@ -146,7 +169,10 @@ void handleMessage(const json& message) {
 
 }  // namespace
 
-int main() {
+int main(int argc, char* argv[]) {
+    Args::parse(argc, argv);
+    Sessions::init(Args::session_ids_file);
+
     std::string line;
     while (std::getline(std::cin, line)) {
         if (line.empty()) {

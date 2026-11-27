@@ -19,5 +19,8 @@ if(NOT nlohmann_json_FOUND)
     FetchContent_MakeAvailable(nlohmann_json)
 endif()
 
-add_executable(quote_mcp src/main.cpp)
+file(GLOB_RECURSE QUOTE_MCP_SRC_FILES CONFIGURE_DEPENDS
+    "${PROJECT_SOURCE_DIR}/src/*.cpp"
+)
+add_executable(quote_mcp ${QUOTE_MCP_SRC_FILES})
 target_link_libraries(quote_mcp PRIVATE nlohmann_json)
